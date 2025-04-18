@@ -20,15 +20,6 @@ string cl_base::ret_name() {
 cl_base* cl_base::ret_head_obj() {
 	return head_obj;
 }
-void cl_base::tree() {
-	if (!child.empty()) {
-		cout << endl << name;
-		for (int i = 0; i < child.size(); i++) {
-			cout << "  " << child[i]->name;
-		}
-		child[child.size() - 1]->tree();
-	}
-}
 cl_base* cl_base::ret_child(string chld_name) {
 	for (int i = 0; i < child.size(); i++) {
 		if (child[i]->name == chld_name) {
@@ -55,5 +46,21 @@ cl_base* cl_base::find_obj_branch(string ObjName) {
 	return nullptr;
 }
 cl_base* cl_base::find_obj_tree(string ObjName) {
+	cl_base* obj = this;
+	while (obj->ret_head_obj()) {
+		obj = obj->ret_head_obj();
+	}
+	// находим количество объектов с одинаковым имененм
+	int count = 0;
+	if (ObjName == ret_name()) return this;
+	for (int i = 0; i < child.size(); i++) {
+		if (child[i]->ret_name() == ObjName) {
+			count++;
+		}
+	}
+	if (count != 1) return nullptr; // если в ветви несколько объектов с одинаковым названием выводим nullptr
+	return find_obj_branch(ObjName); // находим указатель на этот объект
+}
+void cl_base::print_objects() {
 
 }
