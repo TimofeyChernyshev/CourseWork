@@ -61,6 +61,41 @@ cl_base* cl_base::find_obj_tree(string ObjName) {
 	if (count != 1) return nullptr; // если в ветви несколько объектов с одинаковым названием выводим nullptr
 	return find_obj_branch(ObjName); // находим указатель на этот объект
 }
-void cl_base::print_objects() {
-
+void cl_base::print_objects(int space) {
+	cout << ret_name();
+	if (!child.empty()) {
+		for (int i = 0; i < child.size(); i++) {
+			cout << endl;
+			for (int i = 0; i < space; i++) cout << " ";
+			child[i]->print_objects(space + 4);
+		}
+	}
+}
+void cl_base::print_objects_status(int space) {
+	if (status) {
+		cout << ret_name() << " is ready";
+	}
+	else {
+		cout << ret_name() << " is not ready";
+	}
+	if (!child.empty()) {
+		for (int i = 0; i < child.size(); i++) {
+			cout << endl;
+			for (int i = 0; i < space; i++) cout << " ";
+			child[i]->print_objects_status(space + 4);
+		}
+	}
+}
+void cl_base::set_status(int status) {
+	if (ret_head_obj() && !ret_head_obj()->status) {
+		this->status = false;
+	}
+	else {
+		this->status = status;
+	}
+	if (!status) {
+		for (int i = 0; i < child.size(); i++) {
+			child[i]->set_status(status);
+		}
+	}
 }
