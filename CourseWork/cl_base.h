@@ -16,7 +16,9 @@ public:
 	cl_base* ret_head_obj(); // вовзращает указатель на головной объект
 	void tree(); // выводит дерево иерархии
 	cl_base* ret_child(string chld_name); // возвращает указатель на дочерний объект
-	~cl_base();
+	~cl_base(); // деструктор
+	cl_base* find_obj_branch(string ObjName); // метод поиска объекта от имени на ветке
+	cl_base* find_obj_tree(string ObjName); // метод поиска объекта от имени на всем дереве иерархии
 };
 
 #endif

@@ -42,3 +42,18 @@ cl_base::~cl_base() {
 		delete child[i];
 	}
 }
+cl_base* cl_base::find_obj_branch(string ObjName) {
+	if (ret_name() == ObjName) {
+		return this;
+	}
+	for (int i = 0; i < child.size(); i++) {
+		cl_base* sub_child = child[i]->find_obj_branch(ObjName);
+		if (sub_child != nullptr) {
+			return sub_child;
+		}
+	}
+	return nullptr;
+}
+cl_base* cl_base::find_obj_tree(string ObjName) {
+
+}
