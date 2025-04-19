@@ -91,7 +91,7 @@ void cl_base::set_status(int status) {
 	else {
 		this->status = status;
 	}
-	// если статус объекта false, то установим для всех его дочерних классов такое же состояние
+	// если состяние объекта false, то установим для всех его дочерних классов такое же состояние
 	if (status == false) {
 		for (int i = 0; i < child.size(); i++) {
 			child[i]->set_status(false);

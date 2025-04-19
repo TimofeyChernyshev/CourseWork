@@ -11,7 +11,7 @@ class cl_application : public cl_base {
 public:
 	cl_application(cl_base* head_obj); // конструктор, создает корневой объект
 	void build_tree_objects(); // создает иерархию объектов
-	int exec_app(); // запускает алгоритм программыы
+	int exec_app(); // запускает алгоритм программы
 };
 
 #endif
