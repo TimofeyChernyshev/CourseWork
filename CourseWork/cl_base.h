@@ -9,7 +9,7 @@ class cl_base {
 	string name; // имя объекта
 	cl_base* head_obj = nullptr; // указатель на родительский объект
 	vector<cl_base*> child; // вектор дочерних объектов
-	bool status; // состояние объекта
+	bool status = false; // состояние объекта
 public:
 	cl_base(cl_base* head_obj, string name = "Base_object"); // конструктор
 	bool redact_name(string name); // изменяет имя объекта
@@ -23,6 +23,7 @@ public:
 									   // имя каждого дочернего объекта выводится после 4 пробелов
 	void print_objects_status(int space = 4); // метод вывода иерархии объектов и состояния готовности от текущего объекта
 	void set_status(int status_num); // метод установки готовности объекта, параметр - номер состояния
+	int count_name(string name); // метод для нахождения количества объектов с одинаковым именем
 };
 
 #endif

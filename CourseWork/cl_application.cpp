@@ -46,9 +46,10 @@ void cl_application::build_tree_objects() {
 		}
 	}
 	// цикл для установки состояния готовности для объектов дерева
-	while (cin >> base_name >> status) {
+	while (cin >> base_name) {
+		cin >> status;
 		cl_base* obj = find_obj_tree(base_name);
-		if (obj) {
+		if (obj != nullptr) { // если найден объект с таким именем то ставим ему состояние
 			obj->set_status(status);
 		}
 	}

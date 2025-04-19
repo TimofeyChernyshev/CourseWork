@@ -47,18 +47,12 @@ cl_base* cl_base::find_obj_branch(string ObjName) {
 }
 cl_base* cl_base::find_obj_tree(string ObjName) {
 	cl_base* obj = this;
+	if (ObjName == ret_name()) return this;
 	while (obj->ret_head_obj()) {
 		obj = obj->ret_head_obj();
 	}
-	// находим количество объектов с одинаковым имененм
-	int count = 0;
-	if (ObjName == ret_name()) return this;
-	for (int i = 0; i < child.size(); i++) {
-		if (child[i]->ret_name() == ObjName) {
-			count++;
-		}
-	}
-	if (count != 1) return nullptr; // если в ветви несколько объектов с одинаковым названием выводим nullptr
+	// если в ветви несколько объектов с одинаковым названием выводим nullptr
+	if (obj->count_name(ObjName) != 1) return nullptr;
 	return find_obj_branch(ObjName); // находим указатель на этот объект
 }
 void cl_base::print_objects(int space) {
@@ -66,7 +60,7 @@ void cl_base::print_objects(int space) {
 	if (!child.empty()) {
 		for (int i = 0; i < child.size(); i++) {
 			cout << endl;
-			for (int i = 0; i < space; i++) cout << " ";
+			for (int j = 0; j < space; j++) cout << " ";
 			child[i]->print_objects(space + 4);
 		}
 	}
@@ -81,21 +75,34 @@ void cl_base::print_objects_status(int space) {
 	if (!child.empty()) {
 		for (int i = 0; i < child.size(); i++) {
 			cout << endl;
-			for (int i = 0; i < space; i++) cout << " ";
+			for (int j = 0; j < space; j++) cout << " "; // отступ уровня иерархии
 			child[i]->print_objects_status(space + 4);
 		}
 	}
 }
 void cl_base::set_status(int status) {
-	if (ret_head_obj() && !ret_head_obj()->status) {
+	// если пытаемся установить состояние готовности для дочернего класса перед установкой
+	// готовности для его родительского класса, то готовности дочернего присвоится значение false
+	// также дочернему присвоится false если не была введена информация о его состоянии готовности 
+	// (не вызван метод set_status для конкретного объекта)
+	if (ret_head_obj() && (ret_head_obj()->status == false)) {
 		this->status = false;
 	}
 	else {
 		this->status = status;
 	}
-	if (!status) {
+	// если статус объекта false, то установим для всех его дочерних классов такое же состояние
+	if (status == false) {
 		for (int i = 0; i < child.size(); i++) {
-			child[i]->set_status(status);
+			child[i]->set_status(false);
 		}
 	}
+}
+int cl_base::count_name(string name) {
+	int count = 0;
+	if (ret_name() == name) count++;
+	for (int i = 0; i < child.size(); i++) {
+		count += child[i]->count_name(name);
+	}
+	return count;
 }
