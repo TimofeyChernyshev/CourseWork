@@ -9,9 +9,9 @@
 #include "cl_6.h"
 class cl_application : public cl_base {
 public:
-	cl_application(cl_base* head_obj); // конструктор, создает корневой объект
-	void build_tree_objects(); // создает иерархию объектов
-	int exec_app(); // запускает алгоритм программыы
+	cl_application(cl_base* head_obj); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, СЃРѕР·РґР°РµС‚ РєРѕСЂРЅРµРІРѕР№ РѕР±СЉРµРєС‚
+	void build_tree_objects(); // СЃРѕР·РґР°РµС‚ РёРµСЂР°СЂС…РёСЋ РѕР±СЉРµРєС‚РѕРІ
+	int exec_app(); // Р·Р°РїСѓСЃРєР°РµС‚ Р°Р»РіРѕСЂРёС‚Рј РїСЂРѕРіСЂР°РјРјС‹
 };
 
 #endif
