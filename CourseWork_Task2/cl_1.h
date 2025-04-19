@@ -4,7 +4,7 @@
 
 class cl_1 : public cl_base {
 public:
-	cl_1(cl_base* head_obj, string name); // конструктор
+	cl_1(cl_base* head_obj, string name); // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 };
 
 #endif
